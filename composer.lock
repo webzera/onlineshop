@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f0dcbdc80776ca79d6311b8f92c5a4b5",
+    "content-hash": "efcf54a83f9417570257fe0e1b2ddd6c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3474,6 +3474,52 @@
                 "php"
             ],
             "time": "2020-03-13T01:23:26+00:00"
+        },
+        {
+            "name": "webzera/laracart",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webzera/laracart.git",
+                "reference": "1c547587dee6793df9f1e41def11222948b2fa2b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webzera/laracart/zipball/1c547587dee6793df9f1e41def11222948b2fa2b",
+                "reference": "1c547587dee6793df9f1e41def11222948b2fa2b",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Webzera\\Laracart\\Providers\\LaracartServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Webzera\\Laracart\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "webzera",
+                    "email": "johnszen@gmail.com"
+                }
+            ],
+            "description": "This cart package is for laravel ecommerce",
+            "time": "2020-05-08T05:54:37+00:00"
         }
     ],
     "packages-dev": [
@@ -5467,7 +5513,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "webzera/laracart": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
