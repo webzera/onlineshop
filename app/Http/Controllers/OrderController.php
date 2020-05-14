@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Order;
 use Illuminate\Http\Request;
 
+use Session;
+
 class OrderController extends Controller
 {
     /**
@@ -88,26 +90,42 @@ class OrderController extends Controller
 
         
 
-        $order->grand_total = \Cart::session(auth()->id())->getTotal();
-        $order->item_count = \Cart::session(auth()->id())->getContent()->count();
+        $order->grand_total = Session::get('webcart')->totalPrice;
+        $order->item_count = \Webzera\Laracart\Cart::totalCart();
 
+        $order->payment_method = $request->payment_method;
+        
         $order->save();
 
         // save order items 
-        $cartitems=\Cart::session(auth()->id())->getContent();
+        $cartitems=Session::get('webcart');
+        // dd($cartitems->items);
 
-        foreach ($cartitems as $item) {
-            $order->items()->attach($item->id,['price' => $item->price, 'quantity' => $item->quantity]);
+        foreach ($cartitems->items as $item) {
+            $order->items()->attach($item['item']['id'], ['price' => $item['item']['price'], 'quantity' => $item['qty']]);
         }
 
         //check payment method and process payment
 
         if($request->payment_method == 'paypal')
         {
+
+
+
+
+
+
             // return redirect()->route('create-payment');
             return redirect('/payment/create');       
 
         }elseif ($request->payment_method == 'cash_on_delivery') {
+
+
+
+
+
+
+
             echo 'cash_on_delivery';
             $susorder = Order::findOrFail($order->id);
             $susorder->is_paid=1;
@@ -115,13 +133,12 @@ class OrderController extends Controller
         }
 
         //empty cart
-        \Cart::session(auth()->id())->clear();
+        Session::forget('webcart');
+
         //send email to ordered user
 
         //take user to thank you page
-        return "Order completed and thank you for order";
-
-        // dd('order created', $order);
+         return redirect('/');
     }
 
     /**

@@ -23,6 +23,16 @@ Route::get('/', 'ProductController@index')->name('home');
 
 Route::get('/home', 'ProductController@index')->name('home');
 
+//role admin///////////
+Route::get('/admin', 'Admin\AdminController@index')->name('admin::home');
+
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth:admin']], function () {
+ \UniSharp\LaravelFilemanager\Lfm::routes();
+ });
+
+ // role admin end///////
+
 Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
 
 Route::resource('order', 'OrderController');
+
