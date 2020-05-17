@@ -32,7 +32,57 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth:a
 
  // role admin end///////
 
+//admin
+Route::get('/admin/customer', 'Admin\CustomerController@index')->name('admin.customer');
+Route::get('/admin/order', 'Admin\AdminorderController@index')->name('admin.order');
+
+//admin end
+
 Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
 
 Route::resource('order', 'OrderController');
 
+// Route::get('/closure', 'CheckoutController@closure');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Route::get('/closure', 'CheckoutController@closure');
