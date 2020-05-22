@@ -16,6 +16,7 @@
   <link href="{{ asset('vendor/lararoleadmin/css/material-dashboard.css?v=2.1.2') }}" rel="stylesheet">
   {{-- <link href="{{ asset('vendor/lararoleadmin/demo/demo.css') }}" rel="stylesheet" /> --}}
   {{-- <link href="assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" /> --}}
+  @yield('styles')
 </head>
 
 <body>
@@ -38,7 +39,8 @@
 <script src="{{ asset('vendor/lararoleadmin/js/core/bootstrap-material-design.min.js') }}"></script>
 <script src="{{ asset('vendor/lararoleadmin/js/plugins/perfect-scrollbar.jquery.min.js') }}"></script>
 <script src="{{ asset('vendor/lararoleadmin/js/material-dashboard.js?v=2.1.2') }}"></script>
-  <script>
+<script src="{{ asset('vendor/lararoleadmin/js/plugins/bootstrap-notify.js') }}"></script>
+<script>
 $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
 </script>
   @yield('scripts')

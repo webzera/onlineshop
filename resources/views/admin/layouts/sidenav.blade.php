@@ -37,6 +37,12 @@
           <p>Pages</p>
         </a>
       </li>
+      <li class="nav-item <?php if($controller=='ProductController') echo 'active' ?>">
+        <a class="nav-link" href="{{ route('product.index') }}">
+          <i class="material-icons">library_books</i>
+          <p>Product</p>
+        </a>
+      </li>
       <li class="nav-item <?php if($controller=='CustomerController') echo 'active' ?>">
         <a class="nav-link" href="{{ route('admin.customer') }}">
           <i class="material-icons">person</i>

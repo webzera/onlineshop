@@ -3,89 +3,61 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="front/img/favicon.png">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{'Laracart' }}</title>
+     <!-- all css here -->
+    <link rel="stylesheet" href="{{ asset('front/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/themify-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/pe-icon-7-stroke.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/icofont.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/meanmenu.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/bundle.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/responsive.css') }}">
+    <script src="{{ asset('front/js/vendor/modernizr-2.8.3.min.js') }}"></script>
+    @yield('styles')
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <title>{{'Online Shop' }}</title>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+   
 
 </head>
 <body>
+
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        <li class="nav-item">
-                            <a class="nav-link p-0 m-0" href="{{ route('cart::index') }}">
-                            <i class="fas fa-cart-arrow-down text-primary fa-2x"></i> @if(Session::has('webcart'))
-                            <?php $totcart=Webzera\Laracart\Cart::totalCart(); ?>
-                            <span class="badge badge-danger">{{$totcart}}</span>
-                            <span class="badge badge-danger"><?php if($totcart) { ?>{{ Session::get('webcart')->totalQty }}<?php } ?></span>
-                            @endif
-                            </a>
-                        </li>
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
+        @include('layouts.topnotification')
+        @include('layouts.nav')    
+        @include('layouts.sidenav')       
+        @include('layouts.slider')       
+        @include('layouts.popular')       
         <main class="py-4">
             @yield('content')
-        </main>
+        </main>        
+        @include('layouts.brand') 
+        @include('layouts.newsletter') 
+
+        @include('layouts.footer') 
+
     </div>
+
+<script src="{{ asset('front/js/vendor/jquery-1.12.0.min.js') }}"></script>
+<script src="{{ asset('front/js/popper.js') }}"></script>
+<script src="{{ asset('front/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('front/js/jquery.magnific-popup.min.js') }}"></script>
+<script src="{{ asset('front/js/isotope.pkgd.min.js') }}"></script>
+<script src="{{ asset('front/js/imagesloaded.pkgd.min.js') }}"></script>
+<script src="{{ asset('front/js/jquery.counterup.min.js') }}"></script>
+<script src="{{ asset('front/js/waypoints.min.js') }}"></script>
+<script src="{{ asset('front/js/ajax-mail.js') }}"></script>
+<script src="{{ asset('front/js/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('front/js/plugins.js') }}"></script>
+<script src="{{ asset('front/js/main.js') }}"></script>
+  @yield('scripts')
 </body>
 </html>
