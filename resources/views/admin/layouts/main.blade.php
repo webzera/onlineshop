@@ -14,8 +14,6 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- Material Kit CSS -->
   <link href="{{ asset('vendor/lararoleadmin/css/material-dashboard.css?v=2.1.2') }}" rel="stylesheet">
-  {{-- <link href="{{ asset('vendor/lararoleadmin/demo/demo.css') }}" rel="stylesheet" /> --}}
-  {{-- <link href="assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" /> --}}
   @yield('styles')
 </head>
 

@@ -19,9 +19,9 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', 'ProductController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/home', 'ProductController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
 
 //role admin///////////
 Route::get('/admin', 'Admin\AdminController@index')->name('admin::home');

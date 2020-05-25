@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Shop;
+use App\SpecificationHeader;
 use Illuminate\Http\Request;
 
-class ShopController extends Controller
+class SpecificationHeaderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class ShopController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Shop  $shop
+     * @param  \App\SpecificationHeader  $specificationHeader
      * @return \Illuminate\Http\Response
      */
-    public function show(Shop $shop)
+    public function show(SpecificationHeader $specificationHeader)
     {
         //
     }
@@ -52,10 +52,10 @@ class ShopController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Shop  $shop
+     * @param  \App\SpecificationHeader  $specificationHeader
      * @return \Illuminate\Http\Response
      */
-    public function edit(Shop $shop)
+    public function edit(SpecificationHeader $specificationHeader)
     {
         //
     }
@@ -64,10 +64,10 @@ class ShopController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Shop  $shop
+     * @param  \App\SpecificationHeader  $specificationHeader
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Shop $shop)
+    public function update(Request $request, SpecificationHeader $specificationHeader)
     {
         //
     }
@@ -75,10 +75,10 @@ class ShopController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Shop  $shop
+     * @param  \App\SpecificationHeader  $specificationHeader
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Shop $shop)
+    public function destroy(SpecificationHeader $specificationHeader)
     {
         //
     }

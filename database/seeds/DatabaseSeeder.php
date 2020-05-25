@@ -14,6 +14,14 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleTableSeeder::class);
         $this->call(AdminRoleTableSeeder::class);
         $this->call(CategoryTableSeeder::class);
+        $this->call(VariantSeeder::class);
+        $this->call(BrandSeeder::class);
+        $this->call(SpecificationHeaderSeeder::class);
+        $this->call(AttributeSeeder::class);
+        
+
+        
         // $this->call(ProductSeeder::class);
+
     }
 }

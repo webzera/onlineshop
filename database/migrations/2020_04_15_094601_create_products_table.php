@@ -29,6 +29,7 @@ class CreateProductsTable extends Migration
             $table->string('supplier_id')->nullable();            
             $table->string('supplier_price')->nullable();
             $table->string('dis_price')->nullable();
+            $table->unsignedBigInteger('product_group')->nullable();
             $table->string('first_avail')->nullable();
             $table->string('stock_level')->nullable();
             $table->integer('weightage')->default(1);

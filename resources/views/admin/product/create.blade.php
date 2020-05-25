@@ -3,6 +3,9 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <style>
 .material-icons.md-48 { font-size: 48px; }
+.cursor-pointer{
+  cursor: pointer;
+}
 </style>
 @endsection
 @section('content')
@@ -42,6 +45,7 @@
                         </div>
                       </div>
                     </div>
+
                     <div class="row">
                       <div class="col-md-8">
                         <div class="form-group">
@@ -59,8 +63,6 @@
                           <input type="file" id="prod_image" name="prod_image[]" multiple value="" /><span>Product Image upload</span>  {{-- <span style="color: blue" > Check image height 1200x500 </span> --}}
                           </div>
                       </div>
-
-
                     </div>
 
                     <div class="row">
@@ -89,6 +91,7 @@
                         </div>
                       </div>
                     </div>
+
                     <div class="row">
                       <div class="col-md-12">
 
@@ -107,6 +110,32 @@
 
                       </div>
                     </div>
+                    <br/><hr/><h3>Product Specifications</h3><hr/>
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating" for="spec_head">Specification Header</label>
+                          <input type="text" class="form-control" name="spec_head" id="spec_head">
+                          </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                        <label class="bmd-label-floating" for="pro_attribute">Attribute</label>
+                        <input type="text" class="form-control" name="pro_attribkute" id="pro_attribkute">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                        <label class="bmd-label-floating" for="attribute_value">Value</label>
+                        <input type="text" class="form-control" name="attribute_value" id="attribute_value">
+                        </div>
+                      </div>
+                      <div class="col-md-2 flex justify-center">
+                        <span class="fa fa-plus cursor-pointer px-2 py-4"> Add</span>
+                        {{-- <h2>Add</h2> --}}
+                      </div>
+                    </div>
+                    <br/>
                     {{-- <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">

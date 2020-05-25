@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\ProductMedia;
+use App\Attribute;
 use Illuminate\Http\Request;
 
-class ProductMediaController extends Controller
+class AttributeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class ProductMediaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\ProductMedia  $productMedia
+     * @param  \App\Attribute  $attribute
      * @return \Illuminate\Http\Response
      */
-    public function show(ProductMedia $productMedia)
+    public function show(Attribute $attribute)
     {
         //
     }
@@ -52,10 +52,10 @@ class ProductMediaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\ProductMedia  $productMedia
+     * @param  \App\Attribute  $attribute
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProductMedia $productMedia)
+    public function edit(Attribute $attribute)
     {
         //
     }
@@ -64,10 +64,10 @@ class ProductMediaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ProductMedia  $productMedia
+     * @param  \App\Attribute  $attribute
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProductMedia $productMedia)
+    public function update(Request $request, Attribute $attribute)
     {
         //
     }
@@ -75,10 +75,10 @@ class ProductMediaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ProductMedia  $productMedia
+     * @param  \App\Attribute  $attribute
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductMedia $productMedia)
+    public function destroy(Attribute $attribute)
     {
         //
     }

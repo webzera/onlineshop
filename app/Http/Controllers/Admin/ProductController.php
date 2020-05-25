@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Product;
 use App\ProductMedia;
+use App\Category;
 use App\ProductCategory;
 use Illuminate\Support\Str;
 
@@ -46,8 +47,138 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function addcategoris($request, $productId)
     {
+        if($request->category_id){
+            foreach ($request->category_id as $categories[]);                
+                foreach($categories as $categoryid){
+                    if(!is_numeric($categoryid))
+                    {
+                        $catearr=explode(" - ",$categoryid);
+
+                        // if(@count($catearr)==3)
+                        if(count($catearr)==3)
+                        {
+                            $firstcate=Category::where('name', $catearr[0])->first();
+                            if($firstcate)
+                            {
+                                $secondcate=Category::where([
+                                    'parent_id' => $firstcate->id,
+                                    'name' => $catearr[1]
+                                ])->first();
+                                if($secondcate){
+                                    //add category table
+                                    $category = new Category();
+                                    $category->parent_id=$secondcate->id;
+                                    $category->name=$catearr[2];
+                                    $category->order=3;
+                                    $category->slug=Str::of($catearr[2])->slug('-');
+                                    $category->save();
+
+                                    //add product category table
+                                    $productcategory = new ProductCategory();
+                                    $productcategory->product_id=$productId;
+                                    $productcategory->category_id=$category->id;
+                                    $productcategory->save();
+                                }else
+                                {
+                                    $c_category = new Category();
+                                    $c_category->parent_id=$firstcate->id;                
+                                    $c_category->name=$catearr[1];
+                                    $c_category->order=2;
+                                    $c_category->slug=Str::of($catearr[1])->slug('-');
+                                    $c_category->save();
+
+                                    $cc_category = new Category();
+                                    $cc_category->parent_id=$c_category->id;                
+                                    $cc_category->name=$catearr[2];
+                                    $cc_category->order=3;
+                                    $cc_category->slug=Str::of($catearr[2])->slug('-');
+                                    $cc_category->save();
+
+                                    $productcategory = new ProductCategory();
+                                    $productcategory->product_id=$productId;
+                                    $productcategory->category_id=$cc_category->id;
+                                    $productcategory->save();
+                                }
+                                
+                            }else{
+                                $category = new Category();                     
+                                $category->name=$catearr[0];
+                                $category->order=1;
+                                $category->slug=Str::of($catearr[0])->slug('-');
+                                $category->save();
+
+                                $c_category = new Category();
+                                $c_category->parent_id=$category->id;                
+                                $c_category->name=$catearr[1];
+                                $c_category->order=2;
+                                $c_category->slug=Str::of($catearr[1])->slug('-');
+                                $c_category->save();
+
+                                $cc_category = new Category();
+                                $cc_category->parent_id=$c_category->id;                
+                                $cc_category->name=$catearr[2];
+                                $cc_category->order=3;
+                                $cc_category->slug=Str::of($catearr[2])->slug('-');
+                                $cc_category->save();
+
+                                $productcategory = new ProductCategory();
+                                $productcategory->product_id=$productId;
+                                $productcategory->category_id=$cc_category->id;
+                                $productcategory->save();
+                            }                        
+
+                             
+                        }
+                    }else{
+                        $productcategory = new ProductCategory();
+                        $productcategory->product_id=$productId;
+                        $productcategory->category_id=$categoryid;
+                        $productcategory->save();    
+                    }                
+            }
+        }
+    }
+    public function addimages($request, $productId)
+    {
+        $modelpromedia = new ProductMedia();
+        if ($request->prod_image) {
+                foreach ($request->prod_image as $key => $image)
+                {
+                    //$image = $request->file('prod_image');
+                    $slug=Str::of($image)->slug('-');
+                    $name = uniqid().'-'.$slug.'.'.$image->getClientOriginalExtension();
+                    $destinationPath = public_path('/storage/product');
+                    // $destinationPath = '/home/megha/public_html/storage/product';
+                    $imagePath = $destinationPath. "/".  $name;
+                    if(!$image->move($destinationPath, $name))
+                    {
+                        echo "file not upload"; die();
+                    }
+                    // $product->prod_image = $name;                      
+
+                    if($key == 0)
+                    {
+                        $modelpromedia->cover_image=1;
+                    }
+
+                    $modelpromedia->product_id=$productId;
+                    $modelpromedia->media_url=$name;
+                    $modelpromedia->media_type=1;
+                    $modelpromedia->save();                        
+
+                    $modelpromedia = new ProductMedia();
+                }            
+        }
+    }
+    public function addattributs($request, $productId)
+    {
+        
+    }
+
+    public function store(Request $request)
+    {        
         $this->validate($request, [
             'product_name'=> 'required',
             'brand'=> 'required',
@@ -72,47 +203,16 @@ class ProductController extends Controller
         $product->status=1;
         $product->save();
 
-        $modelpromedia = new ProductMedia();
-        if ($request->prod_image) {
-                foreach ($request->prod_image as $key => $image)
-                {
-                    //$image = $request->file('prod_image');
-                    $slug=Str::of($image)->slug('-');
-                    $name = uniqid().'-'.$slug.'.'.$image->getClientOriginalExtension();
-                    $destinationPath = public_path('/storage/product');
-                    // $destinationPath = '/home/megha/public_html/storage/product';
-                    $imagePath = $destinationPath. "/".  $name;
-                    if(!$image->move($destinationPath, $name))
-                    {
-                        echo "file not upload"; die();
-                    }
-                    // $product->prod_image = $name;                      
-
-                    if($key == 0)
-                    {
-                        $modelpromedia->cover_image=1;
-                    }
-
-                    $modelpromedia->product_id=$product->id;
-                    $modelpromedia->media_url=$name;
-                    $modelpromedia->media_type=1;
-                    $modelpromedia->save();                        
-
-                    $modelpromedia = new ProductMedia();
-                }            
-        }
+        // add product images
+        //$this->addimages($request, $product->id);
 
         // add category details
-        if($request->category_id){
-            foreach ($request->category_id as $categories[]);                
-                foreach($categories as $categoryid){
-                    $productcategory = new ProductCategory();
-                    $productcategory->product_id=$product->id;
-                    $productcategory->category_id=$categoryid;
-                    $productcategory->save();
-            }
-        }
+        //$this->addcategoris($request, $product->id);
 
+        // add attribute
+        // specification, attribute, product_attribute
+        $this->addattributs($request, $product->id);
+        
 
         
 
@@ -238,13 +338,95 @@ class ProductController extends Controller
         // edit category details
             //delete old categories
         ProductCategory::where('product_id', $product->id)->delete();
+
         if($request->category_id){
             foreach ($request->category_id as $categories[]);                
                 foreach($categories as $categoryid){
-                    $productcategory = new ProductCategory();
-                    $productcategory->product_id=$product->id;
-                    $productcategory->category_id=$categoryid;
-                    $productcategory->save();
+                    if(!is_numeric($categoryid))
+                    {
+                        $catearr=explode(" - ",$categoryid);
+
+                        // if(@count($catearr)==3)
+                        if(count($catearr)==3)
+                        {
+                            $firstcate=Category::where('name', $catearr[0])->first();
+                            if($firstcate)
+                            {
+                                $secondcate=Category::where([
+                                    'parent_id' => $firstcate->id,
+                                    'name' => $catearr[1]
+                                ])->first();
+                                if($secondcate){
+                                    //add category table
+                                    $category = new Category();
+                                    $category->parent_id=$secondcate->id;
+                                    $category->name=$catearr[2];
+                                    $category->order=3;
+                                    $category->slug=Str::of($catearr[2])->slug('-');
+                                    $category->save();
+
+                                    //add product category table
+                                    $productcategory = new ProductCategory();
+                                    $productcategory->product_id=$product->id;
+                                    $productcategory->category_id=$category->id;
+                                    $productcategory->save();
+                                }else
+                                {
+                                    $c_category = new Category();
+                                    $c_category->parent_id=$firstcate->id;                
+                                    $c_category->name=$catearr[1];
+                                    $c_category->order=2;
+                                    $c_category->slug=Str::of($catearr[1])->slug('-');
+                                    $c_category->save();
+
+                                    $cc_category = new Category();
+                                    $cc_category->parent_id=$c_category->id;                
+                                    $cc_category->name=$catearr[2];
+                                    $cc_category->order=3;
+                                    $cc_category->slug=Str::of($catearr[2])->slug('-');
+                                    $cc_category->save();
+
+                                    $productcategory = new ProductCategory();
+                                    $productcategory->product_id=$product->id;
+                                    $productcategory->category_id=$cc_category->id;
+                                    $productcategory->save();
+                                }
+                                
+                            }else{
+                                $category = new Category();                     
+                                $category->name=$catearr[0];
+                                $category->order=1;
+                                $category->slug=Str::of($catearr[0])->slug('-');
+                                $category->save();
+
+                                $c_category = new Category();
+                                $c_category->parent_id=$category->id;                
+                                $c_category->name=$catearr[1];
+                                $c_category->order=2;
+                                $c_category->slug=Str::of($catearr[1])->slug('-');
+                                $c_category->save();
+
+                                $cc_category = new Category();
+                                $cc_category->parent_id=$c_category->id;                
+                                $cc_category->name=$catearr[2];
+                                $cc_category->order=3;
+                                $cc_category->slug=Str::of($catearr[2])->slug('-');
+                                $cc_category->save();
+
+                                $productcategory = new ProductCategory();
+                                $productcategory->product_id=$product->id;
+                                $productcategory->category_id=$cc_category->id;
+                                $productcategory->save();
+                            }                        
+
+                             
+                        }
+                    }else{
+                        $productcategory = new ProductCategory();
+                        $productcategory->product_id=$product->id;
+                        $productcategory->category_id=$categoryid;
+                        $productcategory->save();    
+                    }                
             }
         }
         

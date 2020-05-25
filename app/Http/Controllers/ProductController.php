@@ -13,7 +13,7 @@ class ProductController extends Controller
     }
 	public function index()
     {
-        $products= Product::take(20)->get();
-        return view('home', ['products' => $products]);
+        // $products= Product::take(20)->get();
+        // return view('home', ['products' => $products]);
     }
 }

@@ -43,6 +43,7 @@
         @include('layouts.newsletter') 
 
         @include('layouts.footer') 
+        @include('layouts.quickview') 
 
     </div>
 

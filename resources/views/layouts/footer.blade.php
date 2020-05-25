@@ -11,8 +11,8 @@
                                         <span>Address:</span>
                                     </div>
                                     <div class="footer-info-content2">
-                                        <p>77 Seventh Streeth Banasree
-                                            <br>Road Rampura -2100 Dhaka</p>
+                                        <p>24 Seventh Streeth Banasree
+                                            <br>Road Mannai -614001 Tamilnadu</p>
                                     </div>
                                 </div>
                                 <div class="footer-address-electro">
@@ -20,8 +20,8 @@
                                         <span>Phone:</span>
                                     </div>
                                     <div class="footer-info-content2">
-                                        <p>+11 (019) 2518 4203
-                                            <br>+11 (251) 2223 3353</p>
+                                        <p>+11 (091) 24418 4203
+                                            <br>+91 (2451) 223 333</p>
                                     </div>
                                 </div>
                                 <div class="footer-address-electro">
@@ -29,8 +29,8 @@
                                         <span>Email:</span>
                                     </div>
                                     <div class="footer-info-content2">
-                                        <p><a href="#">domain@mail.com</a>
-                                            <br><a href="#">company@domain.info</a></p>
+                                        <p><a href="#">john@webzera.com</a>
+                                            <br><a href="#">webzera@webzera.com</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -91,7 +91,7 @@
                             </div>
                             <div class="footer-services-content">
                                 <h3>Free Shipping</h3>
-                                <p>Free Shipping on Bangladesh</p>
+                                <p>Free Shipping on Mannargudi</p>
                             </div>
                         </div>
                     </div>
@@ -102,7 +102,7 @@
                             </div>
                             <div class="footer-services-content">
                                 <h3>Money Guarentee</h3>
-                                <p>Free Shipping on Bangladesh</p>
+                                <p>Free Shipping on Mannargudi</p>
                             </div>
                         </div>
                     </div>
@@ -113,7 +113,7 @@
                             </div>
                             <div class="footer-services-content">
                                 <h3>Online Support</h3>
-                                <p>Free Shipping on Bangladesh</p>
+                                <p>Free Shipping on Mannargudi</p>
                             </div>
                         </div>
                     </div>
@@ -123,7 +123,7 @@
         <div class="footer-bottom  black-bg pt-25 pb-30">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-6 col-md-5">
+                    {{-- <div class="col-lg-6 col-md-5">
                         <div class="footer-menu">
                             <nav>
                                 <ul>
@@ -133,7 +133,7 @@
                                 </ul>
                             </nav>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-lg-6 col-md-7">
                         <div class="copyright f-right mrg-5">
                             <p>

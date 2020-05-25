@@ -6,138 +6,40 @@
           </div>
           <div class="product-style">
               <div class="popular-product-active owl-carousel">
+                @foreach ($products as $product)
+
                   <div class="product-wrapper">
                       <div class="product-img">
+                      <?php
+                        $imageurl=asset('img/catimage.jpg');
+                        if(@$product->coverimage->first()->media_url)
+                        {
+                          $imageurl=@$product->coverimage->first()->media_url;
+                          $imageurl=url('/').'/storage/product/'.$imageurl;
+                        }
+                        ?>
                           <a href="#">
-                              <img src="front/img/product/furniture/1.jpg" alt="">
+                              <img src="{{$imageurl}}" alt="{{$product->product_name}}">
                           </a>
                           <div class="product-action">
                               <a class="animate-left" title="Wishlist" href="#">
                                   <i class="pe-7s-like"></i>
                               </a>
-                              <a class="animate-top" title="Add To Cart" href="#">
+                              <a class="animate-top" title="Add To Cart" href="{{ route('cart::add', $product) }}">
                                   <i class="pe-7s-cart"></i>
                               </a>
-                              <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
+                              <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#productModal{{$product->id}}" href="#">
                                   <i class="pe-7s-look"></i>
                               </a>
                           </div>
                       </div>
                       <div class="funiture-product-content text-center">
-                          <h4><a href="product-details.html">Sofa Chaise Sleeper</a></h4>
-                          <span>$90.00</span>
+                          <h4><a href="product-details.html">{{ $product->product_name }}</a></h4>
+                          <span>Rs. {{ $product->price }}</span>
                       </div>
-                  </div>
-                  <div class="product-wrapper">
-                      <div class="product-img">
-                          <a href="#">
-                              <img src="front/img/product/furniture/2.jpg" alt="">
-                          </a>
-                          <div class="product-action">
-                              <a class="animate-left" title="Wishlist" href="#">
-                                  <i class="pe-7s-like"></i>
-                              </a>
-                              <a class="animate-top" title="Add To Cart" href="#">
-                                  <i class="pe-7s-cart"></i>
-                              </a>
-                              <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                  <i class="pe-7s-look"></i>
-                              </a>
-                          </div>
-                      </div>
-                      <div class="funiture-product-content text-center">
-                          <h4><a href="product-details.html">Darcy Sofa</a></h4>
-                          <span>$90.00</span>
-                      </div>
-                  </div>
-                  <div class="product-wrapper">
-                      <div class="product-img">
-                          <a href="#">
-                              <img src="front/img/product/furniture/3.jpg" alt="">
-                          </a>
-                          <div class="product-action">
-                              <a class="animate-left" title="Wishlist" href="#">
-                                  <i class="pe-7s-like"></i>
-                              </a>
-                              <a class="animate-top" title="Add To Cart" href="#">
-                                  <i class="pe-7s-cart"></i>
-                              </a>
-                              <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                  <i class="pe-7s-look"></i>
-                              </a>
-                          </div>
-                      </div>
-                      <div class="funiture-product-content text-center">
-                          <h4><a href="product-details.html">Bladen Sofa</a></h4>
-                          <span>$90.00</span>
-                      </div>
-                  </div>
-                  <div class="product-wrapper">
-                      <div class="product-img">
-                          <a href="#">
-                              <img src="front/img/product/furniture/4.jpg" alt="">
-                          </a>
-                          <div class="product-action">
-                              <a class="animate-left" title="Wishlist" href="#">
-                                  <i class="pe-7s-like"></i>
-                              </a>
-                              <a class="animate-top" title="Add To Cart" href="#">
-                                  <i class="pe-7s-cart"></i>
-                              </a>
-                              <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                  <i class="pe-7s-look"></i>
-                              </a>
-                          </div>
-                      </div>
-                      <div class="funiture-product-content text-center">
-                          <h4><a href="product-details.html">Ardenboro Sofa</a></h4>
-                          <span>$90.00</span>
-                      </div>
-                  </div>
-                  <div class="product-wrapper">
-                      <div class="product-img">
-                          <a href="#">
-                              <img src="front/img/product/furniture/1.jpg" alt="">
-                          </a>
-                          <div class="product-action">
-                              <a class="animate-left" title="Wishlist" href="#">
-                                  <i class="pe-7s-like"></i>
-                              </a>
-                              <a class="animate-top" title="Add To Cart" href="#">
-                                  <i class="pe-7s-cart"></i>
-                              </a>
-                              <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                  <i class="pe-7s-look"></i>
-                              </a>
-                          </div>
-                      </div>
-                      <div class="funiture-product-content text-center">
-                          <h4><a href="product-details.html">Daystar Sofa</a></h4>
-                          <span>$90.00</span>
-                      </div>
-                  </div>
-                  <div class="product-wrapper">
-                      <div class="product-img">
-                          <a href="#">
-                              <img src="front/img/product/furniture/2.jpg" alt="">
-                          </a>
-                          <div class="product-action">
-                              <a class="animate-left" title="Wishlist" href="#">
-                                  <i class="pe-7s-like"></i>
-                              </a>
-                              <a class="animate-top" title="Add To Cart" href="#">
-                                  <i class="pe-7s-cart"></i>
-                              </a>
-                              <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                  <i class="pe-7s-look"></i>
-                              </a>
-                          </div>
-                      </div>
-                      <div class="funiture-product-content text-center">
-                          <h4><a href="product-details.html">Trivia Accent Chair</a></h4>
-                          <span>$90.00</span>
-                      </div>
-                  </div>
+                  </div>     
+
+                @endforeach
               </div>
           </div>
       </div>
