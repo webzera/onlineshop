@@ -1,7 +1,7 @@
 <div class="flex">
 
 @foreach( $addmores as $key => $addmore)
-{{-- {{dd($loop->index)}} --}}
+	{{-- {{dd($loop->index)}} --}}
 <div class="row" wire:key="{{$key}}">
   <div class="col-md-3">
     <div class="form-group">
