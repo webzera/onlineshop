@@ -9,6 +9,9 @@ use App\Product;
 use App\ProductMedia;
 use App\Category;
 use App\ProductCategory;
+use App\SpecificationHeader;
+use App\Attribute;
+use App\ProductAttribute;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -38,7 +41,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.product.create');
+        $specheads = SpecificationHeader::all();
+        $attributes = Attribute::all();
+        // $selectedSpec = User::first()->role_id;
+        return view('admin.product.create',compact('specheads', 'attributes'));
     }
 
     /**
@@ -146,7 +152,6 @@ class ProductController extends Controller
         if ($request->prod_image) {
                 foreach ($request->prod_image as $key => $image)
                 {
-                    //$image = $request->file('prod_image');
                     $slug=Str::of($image)->slug('-');
                     $name = uniqid().'-'.$slug.'.'.$image->getClientOriginalExtension();
                     $destinationPath = public_path('/storage/product');
@@ -155,10 +160,11 @@ class ProductController extends Controller
                     if(!$image->move($destinationPath, $name))
                     {
                         echo "file not upload"; die();
-                    }
-                    // $product->prod_image = $name;                      
+                    }                   
 
-                    if($key == 0)
+                    $thisisfirst=ProductMedia::where(['product_id' => $product->id, 'cover_image' => 1]);   
+
+                    if($key == 0 || !$thisisfirst->exists())
                     {
                         $modelpromedia->cover_image=1;
                     }
@@ -174,11 +180,33 @@ class ProductController extends Controller
     }
     public function addattributs($request, $productId)
     {
-        
+        if(!empty($request->spec_head) && !empty($request->pro_attribute) && !empty($request->attribute_value)){
+            foreach ($request->spec_head as $skey => $specheadvalue) {
+                foreach ($request->pro_attribute as $akey => $attribname) {
+                    foreach ($request->attribute_value as $vkey => $attribvalue) {
+                        if($skey==$akey && $skey==$vkey){
+                            if(!empty($specheadvalue) && !empty($attribname) && !empty($attribvalue)){
+                                $productattribute= new ProductAttribute;
+                                $productattribute->product_id=$productId;
+                                $productattribute->specification_id=$specheadvalue;
+                                $productattribute->attribute_id=$attribname;
+                                $productattribute->value=$attribvalue;
+                                $productattribute->created_by=auth()->id();
+                                $productattribute->update_by=auth()->id();
+                                $productattribute->save();
+                            }                           
+                        }
+                    }
+                }
+            }
+        }
+       
+
     }
 
     public function store(Request $request)
     {        
+
         $this->validate($request, [
             'product_name'=> 'required',
             'brand'=> 'required',
@@ -211,35 +239,8 @@ class ProductController extends Controller
 
         // add attribute
         // specification, attribute, product_attribute
-        $this->addattributs($request, $product->id);
-        
-
-        
-
-        /*Add attrib*/
-        // if (isset($_REQUEST['productidforattrib'])) {
-        //     $modelproattri = new Productattributes();                              
-        //     //echo $proid=$_REQUEST['productidforattrib'];
-        //     $proid=$model->id;
-            
-        //     foreach ($_REQUEST as $key => $value) {
-        //         if($key!='_csrf' && $key!='productidforattrib' && $value!='') {
-        //             //echo $key." : ".$value; echo "<br>"; 
-        //             $subquery=Productattributes::find()->where(['product_at_feild_id'=>$key,'status' => 1,'product_id' => $proid ])->asArray()->all();
-                    
-        //             if(!$subquery){
-        //                 $modelproattri->product_id=$proid;
-        //                 $modelproattri->product_at_feild_id=$key;
-        //                 $modelproattri->product_at_vallue=$value;
-        //                 $modelproattri->save();
-        //                 $modelproattri = new Productattributes();
-        //             }
-        //         }
-        //     } 
-        //     //return Yii::$app->response->redirect('update?id='.$proid.'&tabswit=3');
-        // }   
-        /*attrib end*/
-
+        $this->addattributs($request, $product->id);    
+              
         flash('Product added Successfully!');
         return redirect('/admin/product');
     }
@@ -263,10 +264,21 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::findOrFail($id);     
         $cate=$product->categories;
+        $specheads = SpecificationHeader::all();
+        $attributes = Attribute::all();
+
+        $oldattrib = ProductAttribute::where('product_id', $id)->get();
+      
         return view('admin.product.edit')
-        ->with(['product'=> $product, 'cate' => $cate]);
+        ->with([
+            'product'=> $product,
+            'cate' => $cate,
+            'specheads' => $specheads,
+            'attributes' => $attributes,
+            'oldattrib' => $oldattrib
+        ]);
     }
 
     /**
@@ -283,9 +295,7 @@ class ProductController extends Controller
             'brand'=> 'required',
             'prod_desc' => 'required',
             'SKU' => 'required',
-            // 'prodcate_id' => 'required',
-            // 'prodsubcate_id' => 'required',
-            // 'prod_image' => 'required',
+            'category_id' => 'required',
             'price' => 'required',
         ]);
 
@@ -303,133 +313,18 @@ class ProductController extends Controller
         $product->status=1;
         $product->save();
 
-        $modelpromedia = new ProductMedia();
-        if ($request->prod_image) {            
-                foreach ($request->prod_image as $key => $image)
-                {
-                    //$image = $request->file('prod_image');
-                    $slug=Str::of($image)->slug('-');
-                    $name = uniqid().'-'.$slug.'.'.$image->getClientOriginalExtension();
-                    $destinationPath = public_path('/storage/product');
-                    // $destinationPath = '/home/megha/public_html/storage/product';
-                    $imagePath = $destinationPath. "/".  $name;
-                    if(!$image->move($destinationPath, $name))
-                    {
-                        echo "file not upload"; die();
-                    }                    
-                    $thisisfirst=ProductMedia::where(['product_id' => $product->id, 'cover_image' => 1]);   
-
-                    // dd($thisisfirst->exists());
-
-                    if($key == 0 && !$thisisfirst->exists())
-                    {
-                        $modelpromedia->cover_image=1;
-                    }
-
-                    $modelpromedia->product_id=$product->id;
-                    $modelpromedia->media_url=$name;
-                    $modelpromedia->media_type=1;
-                    $modelpromedia->save();                        
-
-                    $modelpromedia = new ProductMedia();
-                }                        
-        }
+        // edit product images
+        $this->addimages($request, $product->id);
 
         // edit category details
-            //delete old categories
+        //delete old categories
         ProductCategory::where('product_id', $product->id)->delete();
+        $this->addcategoris($request, $product->id);
 
-        if($request->category_id){
-            foreach ($request->category_id as $categories[]);                
-                foreach($categories as $categoryid){
-                    if(!is_numeric($categoryid))
-                    {
-                        $catearr=explode(" - ",$categoryid);
-
-                        // if(@count($catearr)==3)
-                        if(count($catearr)==3)
-                        {
-                            $firstcate=Category::where('name', $catearr[0])->first();
-                            if($firstcate)
-                            {
-                                $secondcate=Category::where([
-                                    'parent_id' => $firstcate->id,
-                                    'name' => $catearr[1]
-                                ])->first();
-                                if($secondcate){
-                                    //add category table
-                                    $category = new Category();
-                                    $category->parent_id=$secondcate->id;
-                                    $category->name=$catearr[2];
-                                    $category->order=3;
-                                    $category->slug=Str::of($catearr[2])->slug('-');
-                                    $category->save();
-
-                                    //add product category table
-                                    $productcategory = new ProductCategory();
-                                    $productcategory->product_id=$product->id;
-                                    $productcategory->category_id=$category->id;
-                                    $productcategory->save();
-                                }else
-                                {
-                                    $c_category = new Category();
-                                    $c_category->parent_id=$firstcate->id;                
-                                    $c_category->name=$catearr[1];
-                                    $c_category->order=2;
-                                    $c_category->slug=Str::of($catearr[1])->slug('-');
-                                    $c_category->save();
-
-                                    $cc_category = new Category();
-                                    $cc_category->parent_id=$c_category->id;                
-                                    $cc_category->name=$catearr[2];
-                                    $cc_category->order=3;
-                                    $cc_category->slug=Str::of($catearr[2])->slug('-');
-                                    $cc_category->save();
-
-                                    $productcategory = new ProductCategory();
-                                    $productcategory->product_id=$product->id;
-                                    $productcategory->category_id=$cc_category->id;
-                                    $productcategory->save();
-                                }
-                                
-                            }else{
-                                $category = new Category();                     
-                                $category->name=$catearr[0];
-                                $category->order=1;
-                                $category->slug=Str::of($catearr[0])->slug('-');
-                                $category->save();
-
-                                $c_category = new Category();
-                                $c_category->parent_id=$category->id;                
-                                $c_category->name=$catearr[1];
-                                $c_category->order=2;
-                                $c_category->slug=Str::of($catearr[1])->slug('-');
-                                $c_category->save();
-
-                                $cc_category = new Category();
-                                $cc_category->parent_id=$c_category->id;                
-                                $cc_category->name=$catearr[2];
-                                $cc_category->order=3;
-                                $cc_category->slug=Str::of($catearr[2])->slug('-');
-                                $cc_category->save();
-
-                                $productcategory = new ProductCategory();
-                                $productcategory->product_id=$product->id;
-                                $productcategory->category_id=$cc_category->id;
-                                $productcategory->save();
-                            }                        
-
-                             
-                        }
-                    }else{
-                        $productcategory = new ProductCategory();
-                        $productcategory->product_id=$product->id;
-                        $productcategory->category_id=$categoryid;
-                        $productcategory->save();    
-                    }                
-            }
-        }
-        
+        // edit attribute
+        // specification, attribute, product_attribute
+        ProductAttribute::where('product_id', $product->id)->delete();        
+        $this->addattributs($request, $product->id);       
 
         flash('Product Updated Successfully!');
         return redirect('/admin/product');

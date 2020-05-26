@@ -11,10 +11,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"> --}}
   <!-- Material Kit CSS -->
+  <link href="{{ asset('vendor/lararoleadmin/css/font-awesome.min.css') }}" rel="stylesheet">
   <link href="{{ asset('vendor/lararoleadmin/css/material-dashboard.css?v=2.1.2') }}" rel="stylesheet">
   @yield('styles')
+  @livewireStyles
 </head>
 
 <body>
@@ -42,6 +44,8 @@
 $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
 </script>
   @yield('scripts')
+   @livewireScripts
+
 </body>
 
 </html>

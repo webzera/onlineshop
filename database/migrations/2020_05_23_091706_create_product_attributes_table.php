@@ -14,11 +14,13 @@ class CreateProductAttributesTable extends Migration
     public function up()
     {
         Schema::create('product_attributes', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('attribute_id');
+            $table->id();            
             $table->unsignedBigInteger('product_id');
-            $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
+            $table->unsignedBigInteger('specification_id');
+            $table->unsignedBigInteger('attribute_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('specification_id')->references('id')->on('specification_headers')->onDelete('cascade');
+            $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
             $table->text('value');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('update_by');

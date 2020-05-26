@@ -3,6 +3,9 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <style>
 .material-icons.md-48 { font-size: 48px; }
+.cursor-pointer{
+  cursor: pointer;
+}
 </style>
 @endsection
 @section('content')
@@ -114,6 +117,15 @@
 
                       </div>
                     </div>
+                    <br/><hr/><h3>Product Specifications</h3><hr/>
+                    
+                    
+                    @livewire('editattrib', [
+                      'specheads' => $specheads,
+                      'attributes' => $attributes,
+                      'oldattrib' => $oldattrib,
+                      ])
+                    <br/>
                     
                     <button type="submit" class="btn btn-primary pull-right">Update Product</button>
                     <div class="clearfix"></div>
