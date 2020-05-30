@@ -47,7 +47,6 @@ Route::get('/details/{product:slug}/', 'ProductController@productdetail')->name(
 Route::resource('order', 'OrderController');
 
 
-
 // Route::get('/closure', 'CheckoutController@closure');
 
 
