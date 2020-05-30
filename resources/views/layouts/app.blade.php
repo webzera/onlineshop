@@ -21,6 +21,9 @@
     <link rel="stylesheet" href="{{ asset('front/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/responsive.css') }}">
     <script src="{{ asset('front/js/vendor/modernizr-2.8.3.min.js') }}"></script>
+
+    {{-- right side cart slider --}}
+    <link rel="stylesheet" href="{{ asset('front/css/side-slider.css') }}">   
     @yield('styles')
 
     <title>{{'Online Shop' }}</title>
@@ -33,6 +36,7 @@
     <div id="app">
         @include('layouts.topnotification')
         @include('layouts.nav')    
+        @include('layouts.sidecart')    
         @include('layouts.sidenav')       
         @include('layouts.slider')       
         @include('layouts.popular')       
@@ -59,6 +63,14 @@
 <script src="{{ asset('front/js/owl.carousel.min.js') }}"></script>
 <script src="{{ asset('front/js/plugins.js') }}"></script>
 <script src="{{ asset('front/js/main.js') }}"></script>
+{{-- right side cart slider --}}
+<script src="{{ asset('front/js/jquery.side-slider.js') }}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#sideslider').sideSlider();
+
+    });
+</script>
   @yield('scripts')
 </body>
 </html>

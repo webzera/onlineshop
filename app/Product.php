@@ -13,6 +13,10 @@ class Product extends Model
     {
       return $this->hasMany(ProductMedia::class);
     }
+    public function productimages()
+    {
+      return $this->hasMany(ProductMedia::class)->orderBy('cover_image', 'ASC');
+    }
     public function coverimage()
     {
       return $this->hasMany(ProductMedia::class)->where('cover_image', 1);

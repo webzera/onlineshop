@@ -11,9 +11,17 @@ class ProductController extends Controller
     {
         //
     }
-	public function index()
+	public function productview()
+    {        
+        $products= Product::take(20)->get();
+        return view('product.productview', ['products' => $products]);
+    }
+    public function productdetail(Product $product)
     {
-        // $products= Product::take(20)->get();
-        // return view('home', ['products' => $products]);
+    	$relatedproducts= Product::take(20)->get();
+        return view('product.details', [
+        	'product' => $product,
+        	'products' => $relatedproducts,
+        ]);
     }
 }

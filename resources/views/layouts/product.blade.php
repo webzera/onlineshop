@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="{{ asset('front/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/responsive.css') }}">
     <script src="{{ asset('front/js/vendor/modernizr-2.8.3.min.js') }}"></script>
+        {{-- right side cart slider --}}
+    <link rel="stylesheet" href="{{ asset('front/css/side-slider.css') }}">
     @yield('styles')
 
     <title>{{'Cart Shop' }}</title>
@@ -31,10 +33,11 @@
 <body>
 
     <div id="app">
-        @include('layouts.topnotification')
+        {{-- @include('layouts.topnotification') --}}
         @include('layouts.nav')  
         <div class="categori-menu-wrapper2 clearfix" style="height: 48px"></div>  
-{{--         @include('layouts.sidenav')       
+        @include('layouts.sidecart')           
+{{--         @include('layouts.sidenav')    
         @include('layouts.slider')       
         @include('layouts.popular')  --}}      
         <main class="py-4">
@@ -44,7 +47,7 @@
         @include('layouts.newsletter')  --}}
 
         @include('layouts.footer') 
-        {{-- @include('layouts.quickview')  --}}
+        @include('layouts.quickview') 
 
     </div>
 
@@ -60,6 +63,14 @@
 <script src="{{ asset('front/js/owl.carousel.min.js') }}"></script>
 <script src="{{ asset('front/js/plugins.js') }}"></script>
 <script src="{{ asset('front/js/main.js') }}"></script>
+{{-- right side cart slider --}}
+<script src="{{ asset('front/js/jquery.side-slider.js') }}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#sideslider').sideSlider();
+
+    });
+</script>
   @yield('scripts')
 </body>
 </html>

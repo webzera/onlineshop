@@ -162,7 +162,7 @@ class ProductController extends Controller
                         echo "file not upload"; die();
                     }                   
 
-                    $thisisfirst=ProductMedia::where(['product_id' => $product->id, 'cover_image' => 1]);   
+                    $thisisfirst=ProductMedia::where(['product_id' => $productId, 'cover_image' => 1]);   
 
                     if($key == 0 || !$thisisfirst->exists())
                     {
@@ -200,13 +200,10 @@ class ProductController extends Controller
                 }
             }
         }
-       
-
     }
 
     public function store(Request $request)
-    {        
-
+    {
         $this->validate($request, [
             'product_name'=> 'required',
             'brand'=> 'required',
@@ -232,10 +229,10 @@ class ProductController extends Controller
         $product->save();
 
         // add product images
-        //$this->addimages($request, $product->id);
+        $this->addimages($request, $product->id);
 
         // add category details
-        //$this->addcategoris($request, $product->id);
+        $this->addcategoris($request, $product->id);
 
         // add attribute
         // specification, attribute, product_attribute

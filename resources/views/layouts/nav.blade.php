@@ -1,5 +1,5 @@
 <header>
-    <div class="header-top-wrapper-2 border-bottom-2">
+    {{-- <div class="header-top-wrapper-2 border-bottom-2">
         <div class="header-info-wrapper pl-200 pr-200">
             <div class="header-contact-info">
                 <ul>
@@ -17,12 +17,12 @@
                 </ul>
             </div>
         </div>
-    </div>
-    <div class="header-bottom pt-40 pb-30 clearfix">
+    </div> --}}
+    <div class="header-bottom pt-20 pb-15 clearfix">
         <div class="header-bottom-wrapper pr-200 pl-200">
             <div class="logo-3">
-                <a href="index.html">
-                    <img src="front/img/logo/logo-3.png" alt="">
+                <a href="{{ route('home') }}">
+                    <img src="{{ asset('front/img/logo/logo-3.png') }}" alt="webzera">
                 </a>
             </div>
             <div class="categories-search-wrapper">
@@ -50,18 +50,32 @@
             <div class="trace-cart-wrapper">
                 <div class="trace same-style">
                     <div class="same-style-icon">
-                        <a href="#"><i class="pe-7s-plane"></i></a>
+                        <a href="#"><i class="pe-7s-flag"></i></a>
                     </div>
                     <div class="same-style-text">
-                        <a href="#">Product <br>trace</a>
+                        <a href="#">India <br>₹ Rupees</a>
+                    </div>
+                </div>
+                <div class="trace same-style">
+                    <div class="same-style-icon">
+                        <a href="#"><i class="pe-7s-users"></i></a>
+                    </div>
+                    <div class="same-style-text">
+                        <a href="#">My <br>Account</a>
                     </div>
                 </div>
                 <div class="categories-cart same-style">
                     <div class="same-style-icon">
-                        <a href="#"><i class="pe-7s-cart"></i></a>
+                        <a href="{{ route('cart::index') }}"><i class="pe-7s-cart"></i></a>
                     </div>
-                    <div class="same-style-text">
-                        <a href="cart.html">My Cart <br>02 Item</a>
+                    <div class="same-style-text">    
+                        <a href="{{ route('cart::index') }}">My Cart <br>
+                        @if(Session::has('webcart'))
+                            <?php $totcart=Webzera\Laracart\Cart::totalCart(); ?>
+                            <span class="badge badge-danger">{{$totcart}}</span>
+                            <span class="badge badge-danger"><?php if($totcart) { ?>{{ Session::get('webcart')->totalQty }}<?php } ?></span>
+                            @endif
+                        </a>
                     </div>
                 </div>
             </div>

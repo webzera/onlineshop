@@ -1,4 +1,4 @@
-<div class="notification-section notification-section-padding  notification-img ptb-10">
+<div class="notification-section notification-section-padding  notification-img ptb-2">
         <div class="container-fluid">
             <div class="notification-wrapper">
                 <div class="notification-pera-graph">

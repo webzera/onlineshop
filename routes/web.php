@@ -41,7 +41,12 @@ Route::resource('admin/product', 'Admin\ProductController');
 
 Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
 
+Route::get('/productview', 'ProductController@productview')->name('productview');
+Route::get('/details/{product:slug}/', 'ProductController@productdetail')->name('productdetail');
+
 Route::resource('order', 'OrderController');
+
+
 
 // Route::get('/closure', 'CheckoutController@closure');
 

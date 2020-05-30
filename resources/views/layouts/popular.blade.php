@@ -18,7 +18,7 @@
                           $imageurl=url('/').'/storage/product/'.$imageurl;
                         }
                         ?>
-                          <a href="#">
+                          <a href="{{ route('productview') }}">
                               <img src="{{$imageurl}}" alt="{{$product->product_name}}">
                           </a>
                           <div class="product-action">
